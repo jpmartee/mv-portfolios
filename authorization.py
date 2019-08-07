@@ -3,7 +3,7 @@ import getpass
 
 def get_bearer_token():
     #Request sign-in info from user
-    user = raw_input("Virtuous Username:")
+    user = input("Virtuous Username:")
     password = getpass.getpass()
     #Create request
     url = "https://api.virtuoussoftware.com/Token"

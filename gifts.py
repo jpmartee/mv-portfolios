@@ -28,7 +28,7 @@ def get_all_passthrough(id_list,auth_token):
     response = query(id_list,parameter="Passthrough Contact Id",auth_token=auth_token)
     j = response.json()
     if j["total"] > 10:
-#        print "Getting all passthrough gifts..."
+#        print("Getting all passthrough gifts...")
         response = query(id_list,parameter="Passthrough Contact Id",auth_token=auth_token,take=j["total"])
     return response
 
@@ -36,7 +36,7 @@ def get_all_direct(id_list,auth_token):
     response = query(id_list,parameter="Contact Id",auth_token=auth_token)
     j = response.json()
     if j["total"] > 10:
-#        print "Getting all direct gifts..."
+#        print("Getting all direct gifts...")
         response = query(id_list,parameter="Contact Id",auth_token=auth_token,take=j["total"])
     return response
 

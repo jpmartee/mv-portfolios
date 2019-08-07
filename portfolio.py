@@ -28,7 +28,7 @@ def get_all_portfolio_contacts(owner, auth_token):
     response = portfolio_query(owner, auth_token)
     j = response.json()
     if j["total"] > 10:
-#        print "Getting portfolio contacts..."
+#        print("Getting portfolio contacts...")
         response = portfolio_query(owner,auth_token,take=j["total"])
     return response
 
