@@ -21,7 +21,6 @@ def get_last_year_gifts(df, date_as_string_col="giftDateFormatted"):
 
 def is_last_year_to_date(date):
     now = datetime.now()
-    this_year_start = datetime(now.year, 1, 1, 0, 0)
     last_year_to_date = now - relativedelta(years=1)
     last_year_start = datetime(last_year_to_date.year, 1, 1, 0, 0)
     return last_year_start <= date <= last_year_to_date

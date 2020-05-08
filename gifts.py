@@ -31,11 +31,11 @@ def get_all_passthrough(id_list,auth_token):
 #        print("Getting all passthrough gifts...")
         gift_list = list()
         count = j["total"]
-        chunks = int(count / 1000)
+        chunks = int(count / 1000) + 1
         for i in range(chunks):
             skip_i = 1000 * i
             response = query(id_list,parameter="Passthrough Contact Id",auth_token=auth_token,take=1000,skip=skip_i)
-            gift_list.append(response.json()["list"])
+            gift_list += response.json()["list"]
     return gift_list
 
 def get_all_direct(id_list,auth_token):
@@ -45,11 +45,11 @@ def get_all_direct(id_list,auth_token):
 #        print("Getting all direct gifts...")
         gift_list = list()
         count = j["total"]
-        chunks = int(count / 1000)
+        chunks = int(count / 1000) + 1
         for i in range(chunks):
             skip_i = 1000 * i
             response = query(id_list,parameter="Contact Id",auth_token=auth_token,take=1000,skip=skip_i)
-            gift_list.append(response.json()["list"])
+            gift_list += response.json()["list"]
     return gift_list
 
 def main():
