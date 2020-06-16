@@ -37,6 +37,14 @@ def amount_by_contact(df, contact_type):
     gift_amounts = df[[contact_type, "amount"]]
     return gift_amounts.groupby([contact_type]).sum()
 
+def get_project_name(gift_designations):
+    if len(gift_designations) == 0:
+        return "In-Kind"
+    elif len(gift_designations) == 1:
+        return gift_designations[0]["project"]
+    else:
+        return "SPLIT"
+
 class Portfolio(object):
     """docstring for Portfolio."""
     def __init__(self, owners=["Sherri's Portfolio", "Kelly's Portfolio"], other_ids="other_ids.csv"):
@@ -73,7 +81,9 @@ class Portfolio(object):
     def all_passthrough_gifts(self):
         """Returns pandas DataFrame of response from all_passthrough_gifts"""
         gift_list = self.all_passthrough_gifts_response()
-        return pd.DataFrame(gift_list)
+        gift_dataframe = pd.DataFrame(gift_list)
+        gift_dataframe["project"] = gift_dataframe["giftDesignations"].apply(get_project_name)
+        return gift_dataframe
 ################################
     def passthrough_gifts_last_year(self):
         """Returns pandas DataFrame of last year passthrough gifts"""
@@ -99,7 +109,9 @@ class Portfolio(object):
     def all_direct_gifts(self):
         """Returns pandas DataFrame of response from all_direct_gifts"""
         gift_list = self.all_direct_gifts_response()
-        return pd.DataFrame(gift_list)
+        gift_dataframe = pd.DataFrame(gift_list)
+        gift_dataframe["project"] = gift_dataframe["giftDesignations"].apply(get_project_name)
+        return gift_dataframe
 ################################
     def direct_gifts_last_year(self):
         """Returns pandas DataFrame of last year direct gifts"""
@@ -154,6 +166,8 @@ def main():
     today = now.strftime("%Y-%m-%d")
     filename = "Archive/Portfolio Giving Comparison " + today + ".csv"
     p = Portfolio()
+    p.all_passthrough_gifts().to_csv("test_pass.csv",index=False)
+    p.all_direct_gifts().to_csv("test_direct.csv",index=False)
     p.comparison_by_contact().to_csv(filename,index=False)
 
 if __name__ == '__main__':
